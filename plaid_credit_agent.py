@@ -656,7 +656,7 @@ PERCEIVE → REASON → VERIFY → ACT
     """, unsafe_allow_html=True)
     
     # Application selector
-    st.markdown("### 📋 Select Loan Application")
+    st.markdown("### Select Loan Application")
     
     col1, col2, col3 = st.columns(3)
     
@@ -816,7 +816,7 @@ PERCEIVE → REASON → VERIFY → ACT
         
         # Display Decision
         st.markdown("---")
-        st.markdown("### 📋 Credit Decision")
+        st.markdown("### Credit Decision")
         st.caption("Decision reflects real-time identity, cash flow, and network risk signals ● LIVE")
         
         col1, col2 = st.columns([1, 2])
@@ -865,7 +865,7 @@ PERCEIVE → REASON → VERIFY → ACT
         )
         
         # Audit Trail
-        with st.expander("📜 Full Audit Trail (Compliance)"):
+        with st.expander("Full Audit Trail (Compliance)"):
             audit_data = {
                 "audit_id": decision["audit_id"],
                 "timestamp": decision["timestamp"],
