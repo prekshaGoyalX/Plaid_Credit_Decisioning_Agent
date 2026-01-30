@@ -12,7 +12,6 @@ import json
 # =============================================================================
 st.set_page_config(
     page_title="Credit Decisioning Agent | Plaid Infrastructure",
-    page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -24,10 +23,16 @@ st.markdown("""
 <style>
     /* Main theme colors - Plaid inspired */
     :root {
-        --plaid-dark: #0A2540;
-        --plaid-teal: #00D4AA;
-        --plaid-light: #F6F9FC;
+        --plaid-navy: #0A2540;        /* Trust, banking */
+        --plaid-blue: #0055FF;        /* Primary action, intelligence */
+        --plaid-teal: #14B8A6;        /* Real-time signals (calmer) */
+        --plaid-bg: #F7FAFC;          /* App background */
+        --success: #16A34A;
+        --warning: #F59E0B;
+        --danger: #DC2626;
+        --muted-text: #475569;
     }
+
     
     .main-header {
         font-size: 2.2rem;
@@ -38,12 +43,12 @@ st.markdown("""
     
     .sub-header {
         font-size: 1rem;
-        color: #00D4AA;
+        color: var(--plaid-blue);
         font-weight: 500;
     }
     
     .metric-box {
-        background: linear-gradient(135deg, #0A2540 0%, #1a3a5c 100%);
+        background: linear-gradient(135deg, var(--plaid-navy) 0%, #102E4A 100%);
         padding: 1.2rem;
         border-radius: 10px;
         color: white;
@@ -61,7 +66,7 @@ st.markdown("""
     }
     
     .decision-approved {
-        background-color: #10B981;
+        background-color: var(--success);
         color: white;
         padding: 0.75rem 1.5rem;
         border-radius: 8px;
@@ -71,7 +76,7 @@ st.markdown("""
     }
     
     .decision-denied {
-        background-color: #EF4444;
+        background-color: var(--danger);
         color: white;
         padding: 0.75rem 1.5rem;
         border-radius: 8px;
@@ -81,7 +86,7 @@ st.markdown("""
     }
     
     .decision-review {
-        background-color: #F59E0B;
+        background-color: var(--warning);
         color: white;
         padding: 0.75rem 1.5rem;
         border-radius: 8px;
@@ -91,8 +96,8 @@ st.markdown("""
     }
     
     .agent-step {
-        background-color: #EEF2FF;
-        border-left: 4px solid #6366F1;
+        background-color: #F1F5F9;
+        border-left: 4px solid var(--plaid-blue);
         padding: 1rem;
         margin: 0.5rem 0;
         border-radius: 0 8px 8px 0;
@@ -108,16 +113,16 @@ st.markdown("""
     }
     
     .quote-box {
-        background-color: #F0FDF4;
-        border-left: 4px solid #00D4AA;
+        background-color: #F8FAFC;
+        border-left: 4px solid var(--plaid-blue);
         padding: 1rem;
         margin: 1rem 0;
         font-style: italic;
     }
     
     .data-source-tag {
-        background-color: #E0F2FE;
-        color: #0369A1;
+        background-color: #E2E8F0;
+        color: #334155;
         padding: 0.15rem 0.4rem;
         border-radius: 3px;
         font-size: 0.7rem;
@@ -589,7 +594,7 @@ def agent_make_decision(app_data: dict, plaid_signals: dict, metrics: dict) -> d
 def main():
     # Sidebar
     with st.sidebar:
-        st.markdown("### 🏦 Plaid Infrastructure")
+        st.markdown("### Plaid Infrastructure")
         st.markdown("""
         **APIs Powering This Agent:**
         
@@ -662,7 +667,7 @@ PERCEIVE → REASON → VERIFY → ACT
                 st.caption(app_data['business_type'])
                 st.markdown(f"### ${app_data['loan_amount']:,}")
                 st.caption(app_data['loan_purpose'])
-                st.markdown(f"🟢 Plaid Linked | {len(app_data['linked_accounts'])} accounts")
+                st.markdown(f"**Plaid linked** | {len(app_data['linked_accounts'])} accounts")
     
     selected_app_id = st.selectbox(
         "Choose application to process:",
@@ -670,11 +675,11 @@ PERCEIVE → REASON → VERIFY → ACT
         format_func=lambda x: f"{x} | {LOAN_APPLICATIONS[x]['business_name']} | ${LOAN_APPLICATIONS[x]['loan_amount']:,}"
     )
     
-    if st.button("🚀 Run Credit Decisioning Agent", type="primary", use_container_width=True):
+    if st.button("Execute Credit Decisioning", type="primary", use_container_width=True):
         app_data = LOAN_APPLICATIONS[selected_app_id]
         
         st.markdown("---")
-        st.markdown("### 🤖 Agent Processing Trace")
+        st.markdown("### Agent Processing Trace")
         
         # Step 1: Identity Verification
         with st.status("Step 1: Verifying identity via Plaid Layer...", expanded=True) as status:
@@ -683,11 +688,12 @@ PERCEIVE → REASON → VERIFY → ACT
             st.markdown(f"""
             <span class="data-source-tag">PLAID LAYER</span>
             <span class="data-source-tag">PLAID IDENTITY</span>
+            <span style="color:#14B8A6; font-weight:600; margin-left:6px;">● LIVE</span>
             
-            ✅ **Business Verified:** {app_data['business_name']}  
-            ✅ **Owner Verified:** {app_data['owner_name']}  
-            ✅ **Match Score:** {identity['identity_match_score']}  
-            ✅ **Session:** `{identity['session_id']}`
+            **Business Verified:** {app_data['business_name']}  
+            **Owner Verified:** {app_data['owner_name']}  
+            **Match Score:** {identity['identity_match_score']}  
+            **Session:** `{identity['session_id']}`
             """, unsafe_allow_html=True)
             status.update(label="Step 1: Identity Verified ✓", state="complete")
         
@@ -743,6 +749,7 @@ PERCEIVE → REASON → VERIFY → ACT
             <span class="data-source-tag">PLAID SIGNAL</span>
             <span class="data-source-tag">PLAID BEACON</span>
             <span class="data-source-tag">TRUST INDEX V2</span>
+            <span style="color:#14B8A6; font-weight:600; margin-left:6px;">● LIVE RISK</span>
             """, unsafe_allow_html=True)
             
             col1, col2, col3 = st.columns(3)
@@ -751,10 +758,10 @@ PERCEIVE → REASON → VERIFY → ACT
                 fig = go.Figure(go.Indicator(
                     mode="gauge+number",
                     value=signal["signal_score"],
-                    title={'text': "Signal Score"},
+                    title={'text': "<span style='color:#14B8A6'>Signal Score ● LIVE</span>"},
                     gauge={
                         'axis': {'range': [0, 100]},
-                        'bar': {'color': "#00D4AA"},
+                        'bar': {'color': "#14B8A6"},
                         'steps': [
                             {'range': [0, 50], 'color': "#FEE2E2"},
                             {'range': [50, 75], 'color': "#FEF3C7"},
@@ -769,10 +776,10 @@ PERCEIVE → REASON → VERIFY → ACT
                 fig = go.Figure(go.Indicator(
                     mode="gauge+number",
                     value=trust["trust_index"],
-                    title={'text': "Trust Index"},
+                    title={'text': "Trust Index ● LIVE"},
                     gauge={
                         'axis': {'range': [0, 1]},
-                        'bar': {'color': "#6366F1"},
+                        'bar': {'color': "#0055FF"},
                         'steps': [
                             {'range': [0, 0.5], 'color': "#FEE2E2"},
                             {'range': [0.5, 0.8], 'color': "#FEF3C7"},
@@ -784,12 +791,13 @@ PERCEIVE → REASON → VERIFY → ACT
                 st.plotly_chart(fig, use_container_width=True)
             
             with col3:
-                fraud_status = "🟢 CLEAR" if not beacon["fraud_detected"] else "🔴 FLAGGED"
+                fraud_status = "CLEAR" if not beacon["fraud_detected"] else "FLAGGED"
+                color = "#16A34A" if not beacon["fraud_detected"] else "#DC2626"
                 st.markdown(f"""
                 <div style="text-align: center; padding-top: 40px;">
-                    <p style="font-size: 0.9rem; color: #666;">Beacon Fraud Check</p>
-                    <p style="font-size: 1.8rem; font-weight: 700;">{fraud_status}</p>
-                    <p style="font-size: 0.8rem; color: #666;">Network Alerts: {beacon['network_alerts']}</p>
+                    <p style="font-size: 0.9rem; color: #64748B;">Beacon Fraud Check</p>
+                    <p style="font-size: 1.8rem; font-weight: 700; color: {color};">{fraud_status}</p>
+                    <p style="font-size: 0.8rem; color: #64748B;">Network Alerts: {beacon['network_alerts']}</p>
                 </div>
                 """, unsafe_allow_html=True)
             
@@ -809,6 +817,7 @@ PERCEIVE → REASON → VERIFY → ACT
         # Display Decision
         st.markdown("---")
         st.markdown("### 📋 Credit Decision")
+        st.caption("Decision reflects real-time identity, cash flow, and network risk signals ● LIVE")
         
         col1, col2 = st.columns([1, 2])
         
