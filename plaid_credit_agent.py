@@ -37,7 +37,7 @@ st.markdown("""
     .main-header {
         font-size: 2.2rem;
         font-weight: 700;
-        color: #0A2540;
+        color: #00D4AA;
         margin-bottom: 0.2rem;
     }
     
@@ -113,7 +113,7 @@ st.markdown("""
     }
     
     .quote-box {
-        background-color: #F8FAFC;
+        background-color: #1E3A5F;
         border-left: 4px solid var(--plaid-blue);
         padding: 1rem;
         margin: 1rem 0;
