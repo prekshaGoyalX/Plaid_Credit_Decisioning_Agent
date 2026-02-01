@@ -649,9 +649,7 @@ PERCEIVE → REASON → VERIFY → ACT
     # Context
     st.markdown("""
     <div class="quote-box">
-        <strong>B2B Use Case:</strong> This demonstrates how a lender (fintech, bank, credit union) builds an 
-        AI-powered underwriting agent using Plaid's infrastructure. The agent verifies identity, analyzes 
-        financial data, assesses risk, and makes credit decisions with full audit trails for compliance.
+        Product Vision: This demonstrates how Plaid could package its existing APIs (Layer, MCP Server, Signal, Beacon, and Bank Income) into a turnkey credit decisioning agent for lenders(lending apps, banks, credit unions). This is an integrated agent prototype that handles identity verification, financial data retrieval, risk assessment, and audit trail generation out of the box.
     </div>
     """, unsafe_allow_html=True)
     
