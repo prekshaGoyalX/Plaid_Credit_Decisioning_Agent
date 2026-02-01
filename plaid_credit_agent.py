@@ -138,6 +138,20 @@ st.markdown("""
     .stApp {
         background-color: var(--plaid-bg);
     }
+
+    .surface-card {
+        background: #FFFFFF;
+        color: #0F172A !important;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #E2E8F0;
+    }
+    
+    /* Force ALL text inside to be dark */
+    .surface-card * {
+        color: #0F172A !important;
+    }
+
     
     /* Hide Streamlit branding */
     #MainMenu {visibility: hidden;}
@@ -681,12 +695,13 @@ PERCEIVE → REASON → VERIFY → ACT
     
     for idx, (app_id, app_data) in enumerate(LOAN_APPLICATIONS.items()):
         with [col1, col2, col3][idx]:
-            with st.container(border=True):
-                st.markdown(f"**{app_data['business_name']}**")
-                st.caption(app_data['business_type'])
-                st.markdown(f"### ${app_data['loan_amount']:,}")
-                st.caption(app_data['loan_purpose'])
-                st.markdown(f"**Plaid linked** | {len(app_data['linked_accounts'])} accounts")
+            st.markdown('<div class="surface-card">', unsafe_allow_html=True)
+            st.markdown(f"**{app_data['business_name']}**")
+            st.caption(app_data['business_type'])
+            st.markdown(f"### ${app_data['loan_amount']:,}")
+            st.caption(app_data['loan_purpose'])
+            st.markdown(f"**Plaid linked** | {len(app_data['linked_accounts'])} accounts")
+            st.markdown('</div>', unsafe_allow_html=True)
     
     selected_app_id = st.selectbox(
         "Choose application to process:",
