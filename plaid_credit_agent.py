@@ -21,43 +21,119 @@ st.set_page_config(
 # =============================================================================
 st.markdown("""
 <style>
+    /* Main theme colors - Plaid inspired */
+    :root {
+        --plaid-navy: #0A2540;        /* Trust, banking */
+        --plaid-blue: #0055FF;        /* Primary action, intelligence */
+        --plaid-teal: #14B8A6;        /* Real-time signals (calmer) */
+        --plaid-bg: #F7FAFC;          /* App background */
+        --success: #16A34A;
+        --warning: #F59E0B;
+        --danger: #DC2626;
+        --muted-text: #475569;
+    }
 
-    /* Light app background */
-    .stApp {
+    
+    .main-header {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #0A2540;
+        margin-bottom: 0.2rem;
+    }
+    
+    .sub-header {
+        font-size: 1rem;
+        color: var(--plaid-blue);
+        font-weight: 500;
+    }
+    
+    .metric-box {
+        background: linear-gradient(135deg, var(--plaid-navy) 0%, #102E4A 100%);
+        padding: 1.2rem;
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+    }
+    
+    .metric-value {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+    
+    .metric-label {
+        font-size: 0.85rem;
+        opacity: 0.9;
+    }
+    
+    .decision-approved {
+        background-color: var(--success);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .decision-denied {
+        background-color: var(--danger);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .decision-review {
+        background-color: var(--warning);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .agent-step {
         background-color: #F1F5F9;
+        border-left: 4px solid var(--plaid-blue);
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-radius: 0 8px 8px 0;
     }
     
-    /* White cards ONLY where needed */
-    div[data-testid="stContainer"] {
-        background: white;
-        border: 1px solid #E2E8F0;
-        border-radius: 12px;
-        padding: 12px;
+    .plaid-api-badge {
+        background-color: #00D4AA;
+        color: #0A2540;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
     }
     
-    /* Quote box */
     .quote-box {
-        background: white;
-        border-left: 4px solid #0055FF;
-        color: #0F172A;
+        background-color: #F8FAFC;
+        border-left: 4px solid var(--plaid-blue);
+        padding: 1rem;
+        margin: 1rem 0;
+        font-style: italic;
     }
     
-    /* Fix markdown inside white cards ONLY */
-    div[data-testid="stContainer"] p,
-    div[data-testid="stContainer"] span,
-    .quote-box p {
-        color: #0F172A !important;
+    .data-source-tag {
+        background-color: #E2E8F0;
+        color: #334155;
+        padding: 0.15rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.7rem;
+        margin-right: 0.3rem;
     }
     
-    /* Sidebar stays dark automatically — do nothing */
-    
+    /* Hide Streamlit branding */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
-
 </style>
 """, unsafe_allow_html=True)
-
-
 
 # =============================================================================
 # SIMULATED PLAID DATA
@@ -586,13 +662,12 @@ PERCEIVE → REASON → VERIFY → ACT
     
     for idx, (app_id, app_data) in enumerate(LOAN_APPLICATIONS.items()):
         with [col1, col2, col3][idx]:
-            st.markdown('<div class="surface-card">', unsafe_allow_html=True)
-            st.markdown(f"**{app_data['business_name']}**")
-            st.caption(app_data['business_type'])
-            st.markdown(f"### ${app_data['loan_amount']:,}")
-            st.caption(app_data['loan_purpose'])
-            st.markdown(f"**Plaid linked** | {len(app_data['linked_accounts'])} accounts")
-            st.markdown('</div>', unsafe_allow_html=True)
+            with st.container(border=True):
+                st.markdown(f"**{app_data['business_name']}**")
+                st.caption(app_data['business_type'])
+                st.markdown(f"### ${app_data['loan_amount']:,}")
+                st.caption(app_data['loan_purpose'])
+                st.markdown(f"**Plaid linked** | {len(app_data['linked_accounts'])} accounts")
     
     selected_app_id = st.selectbox(
         "Choose application to process:",
@@ -673,6 +748,7 @@ PERCEIVE → REASON → VERIFY → ACT
             <span class="data-source-tag">PLAID SIGNAL</span>
             <span class="data-source-tag">PLAID BEACON</span>
             <span class="data-source-tag">TRUST INDEX V2</span>
+            <span style="color:#14B8A6; font-weight:600; margin-left:6px;">REAL TIME RISK</span>
             """, unsafe_allow_html=True)
             
             col1, col2, col3 = st.columns(3)
