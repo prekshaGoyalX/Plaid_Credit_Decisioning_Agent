@@ -26,7 +26,7 @@ st.markdown("""
         --plaid-navy: #0A2540;        /* Trust, banking */
         --plaid-blue: #0055FF;        /* Primary action, intelligence */
         --plaid-teal: #14B8A6;        /* Real-time signals (calmer) */
-        --plaid-bg: #F7FAFC;          /* App background */
+        --plaid-bg: #F1F5F9;          /* App background */
         --success: #16A34A;
         --warning: #F59E0B;
         --danger: #DC2626;
@@ -119,6 +119,7 @@ st.markdown("""
     
     .quote-box {
         background-color: #F8FAFC;
+        border: 1px solid #E2E8F0;
         border-left: 4px solid var(--plaid-blue);
         padding: 1rem;
         margin: 1rem 0;
@@ -143,10 +144,10 @@ st.markdown("""
     footer {visibility: hidden;}
 
     /* Fix Streamlit bordered containers */
-    div[data-testid="stContainer"][data-border="true"] {
-        background-color: var(--surface-bg) !important;
-        color: var(--surface-text-primary) !important;
-        border-radius: 14px !important;
+    div[data-testid="stContainer"] > div {
+        background-color: white;
+        border-radius: 14px;
+        border: 1px solid #E2E8F0;
     }
     
 
@@ -662,7 +663,7 @@ PERCEIVE → REASON → VERIFY → ACT
     
     # Main content
     st.markdown('<p class="main-header">Credit Decisioning Agent</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-header">Autonomous Underwriting Powered by Plaid Infrastructure</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-header">Autonomous Credit Decisioning Powered by Plaid Infrastructure</p>', unsafe_allow_html=True)
     
     # Context
     st.markdown("""
