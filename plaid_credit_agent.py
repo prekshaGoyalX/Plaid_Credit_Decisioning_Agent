@@ -31,6 +31,11 @@ st.markdown("""
         --warning: #F59E0B;
         --danger: #DC2626;
         --muted-text: #475569;
+    
+        /* LIGHT SURFACE */
+        --surface-bg: #FFFFFF;
+        --surface-text-primary: #0F172A;
+        --surface-text-secondary: #334155;
     }
 
     
@@ -129,9 +134,22 @@ st.markdown("""
         margin-right: 0.3rem;
     }
     
+    .stApp {
+        background-color: var(--plaid-bg);
+    }
+    
     /* Hide Streamlit branding */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
+
+    /* Fix Streamlit bordered containers */
+    div[data-testid="stContainer"] {
+        background-color: var(--surface-bg) !important;
+        color: var(--surface-text-primary) !important;
+        border-radius: 14px !important;
+    }
+    
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -596,7 +614,7 @@ def main():
     with st.sidebar:
         st.markdown("### Plaid Infrastructure")
         st.markdown("""
-        **APIs Powering This Agent:**
+        **Decision Inputs:**
         
         `Identity + Layer`  
         Applicant verification
@@ -688,7 +706,6 @@ PERCEIVE → REASON → VERIFY → ACT
             st.markdown(f"""
             <span class="data-source-tag">PLAID LAYER</span>
             <span class="data-source-tag">PLAID IDENTITY</span>
-            <span style="color:#14B8A6; font-weight:600; margin-left:6px;">● LIVE</span>
             
             **Business Verified:** {app_data['business_name']}  
             **Owner Verified:** {app_data['owner_name']}  
@@ -749,7 +766,6 @@ PERCEIVE → REASON → VERIFY → ACT
             <span class="data-source-tag">PLAID SIGNAL</span>
             <span class="data-source-tag">PLAID BEACON</span>
             <span class="data-source-tag">TRUST INDEX V2</span>
-            <span style="color:#14B8A6; font-weight:600; margin-left:6px;">● LIVE RISK</span>
             """, unsafe_allow_html=True)
             
             col1, col2, col3 = st.columns(3)
@@ -758,7 +774,7 @@ PERCEIVE → REASON → VERIFY → ACT
                 fig = go.Figure(go.Indicator(
                     mode="gauge+number",
                     value=signal["signal_score"],
-                    title={'text': "<span style='color:#14B8A6'>Signal Score ● LIVE</span>"},
+                    title={'text': "<span style='color:#14B8A6'>Signal Score</span>"},
                     gauge={
                         'axis': {'range': [0, 100]},
                         'bar': {'color': "#14B8A6"},
@@ -776,7 +792,7 @@ PERCEIVE → REASON → VERIFY → ACT
                 fig = go.Figure(go.Indicator(
                     mode="gauge+number",
                     value=trust["trust_index"],
-                    title={'text': "Trust Index ● LIVE"},
+                    title={'text': "Trust Index"},
                     gauge={
                         'axis': {'range': [0, 1]},
                         'bar': {'color': "#0055FF"},
@@ -817,7 +833,7 @@ PERCEIVE → REASON → VERIFY → ACT
         # Display Decision
         st.markdown("---")
         st.markdown("### Credit Decision")
-        st.caption("Decision reflects real-time identity, cash flow, and network risk signals ● LIVE")
+        st.caption("Decision reflects real-time identity, cash flow, and network risk signals")
         
         col1, col2 = st.columns([1, 2])
         
