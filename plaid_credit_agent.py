@@ -21,152 +21,65 @@ st.set_page_config(
 # =============================================================================
 st.markdown("""
 <style>
-    /* Main theme colors - Plaid inspired */
-    :root {
-        --plaid-navy: #0A2540;        /* Trust, banking */
-        --plaid-blue: #0055FF;        /* Primary action, intelligence */
-        --plaid-teal: #14B8A6;        /* Real-time signals (calmer) */
-        --plaid-bg: #F1F5F9;          /* App background */
-        --success: #16A34A;
-        --warning: #F59E0B;
-        --danger: #DC2626;
-        --muted-text: #475569;
     
-        /* LIGHT SURFACE */
-        --surface-bg: #FFFFFF;
-        --surface-text-primary: #0F172A;
-        --surface-text-secondary: #334155;
-    }
-
-    
-    .main-header {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #0A2540;
-        margin-bottom: 0.2rem;
+    html, body, [data-testid="stAppViewContainer"], .stApp {
+        background-color: #F1F5F9 !important;
+        color: #0F172A !important;
     }
     
-    .sub-header {
-        font-size: 1rem;
-        color: var(--plaid-blue);
-        font-weight: 500;
+    /* ALL text everywhere */
+    p, span, div, label, input, textarea, li {
+        color: #0F172A !important;
     }
     
-    .metric-box {
-        background: linear-gradient(135deg, var(--plaid-navy) 0%, #102E4A 100%);
-        padding: 1.2rem;
-        border-radius: 10px;
-        color: white;
-        text-align: center;
+    /* Markdown text */
+    .stMarkdown, .stMarkdown p {
+        color: #0F172A !important;
     }
     
-    .metric-value {
-        font-size: 2rem;
-        font-weight: 700;
+    /* Headers */
+    h1, h2, h3, h4 {
+        color: #0A2540 !important;
     }
     
-    .metric-label {
-        font-size: 0.85rem;
-        opacity: 0.9;
+    /* Selectbox + widgets */
+    [data-baseweb="select"] * {
+        color: #0F172A !important;
     }
     
-    .decision-approved {
-        background-color: var(--success);
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: 1.2rem;
-        text-align: center;
+    /* Containers */
+    div[data-testid="stContainer"] {
+        background: #FFFFFF !important;
+        border: 1px solid #E2E8F0 !important;
+        border-radius: 12px !important;
     }
     
-    .decision-denied {
-        background-color: var(--danger);
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: 1.2rem;
-        text-align: center;
+    /* Metric labels */
+    [data-testid="stMetricLabel"] {
+        color: #334155 !important;
     }
     
-    .decision-review {
-        background-color: var(--warning);
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: 1.2rem;
-        text-align: center;
+    /* Buttons */
+    .stButton button {
+        color: white !important;
     }
     
-    .agent-step {
-        background-color: #F1F5F9;
-        border-left: 4px solid var(--plaid-blue);
-        padding: 1rem;
-        margin: 0.5rem 0;
-        border-radius: 0 8px 8px 0;
-    }
-    
-    .plaid-api-badge {
-        background-color: #00D4AA;
-        color: #0A2540;
-        padding: 0.2rem 0.5rem;
-        border-radius: 4px;
-        font-size: 0.75rem;
-        font-weight: 600;
-    }
-    
+    /* Quote box */
     .quote-box {
         background-color: #F8FAFC;
         border: 1px solid #E2E8F0;
-        border-left: 4px solid var(--plaid-blue);
+        border-left: 4px solid #0055FF;
         padding: 1rem;
-        margin: 1rem 0;
-        font-style: italic;
-    }
-    
-    .data-source-tag {
-        background-color: #E2E8F0;
-        color: #334155;
-        padding: 0.15rem 0.4rem;
-        border-radius: 3px;
-        font-size: 0.7rem;
-        margin-right: 0.3rem;
-    }
-    
-    .stApp {
-        background-color: var(--plaid-bg);
-    }
-
-    .surface-card {
-        background: #FFFFFF;
-        color: #0F172A !important;
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid #E2E8F0;
-    }
-    
-    /* Force ALL text inside to be dark */
-    .surface-card * {
         color: #0F172A !important;
     }
-
     
-    /* Hide Streamlit branding */
+    /* Hide branding */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
 
-    /* Fix Streamlit bordered containers */
-    div[data-testid="stContainer"] > div {
-        background-color: white;
-        border-radius: 14px;
-        border: 1px solid #E2E8F0;
-    }
-    
-
 </style>
 """, unsafe_allow_html=True)
+
 
 # =============================================================================
 # SIMULATED PLAID DATA
