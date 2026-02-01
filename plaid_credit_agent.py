@@ -21,64 +21,42 @@ st.set_page_config(
 # =============================================================================
 st.markdown("""
 <style>
-    
-    html, body, [data-testid="stAppViewContainer"], .stApp {
-        background-color: #F1F5F9 !important;
-        color: #0F172A !important;
+
+    /* Light app background */
+    .stApp {
+        background-color: #F1F5F9;
     }
     
-    /* ALL text everywhere */
-    p, span, div, label, input, textarea, li {
-        color: #0F172A !important;
-    }
-    
-    /* Markdown text */
-    .stMarkdown, .stMarkdown p {
-        color: #0F172A !important;
-    }
-    
-    /* Headers */
-    h1, h2, h3, h4 {
-        color: #0A2540 !important;
-    }
-    
-    /* Selectbox + widgets */
-    [data-baseweb="select"] * {
-        color: #0F172A !important;
-    }
-    
-    /* Containers */
+    /* White cards ONLY where needed */
     div[data-testid="stContainer"] {
-        background: #FFFFFF !important;
-        border: 1px solid #E2E8F0 !important;
-        border-radius: 12px !important;
-    }
-    
-    /* Metric labels */
-    [data-testid="stMetricLabel"] {
-        color: #334155 !important;
-    }
-    
-    /* Buttons */
-    .stButton button {
-        color: white !important;
+        background: white;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 12px;
     }
     
     /* Quote box */
     .quote-box {
-        background-color: #F8FAFC;
-        border: 1px solid #E2E8F0;
+        background: white;
         border-left: 4px solid #0055FF;
-        padding: 1rem;
+        color: #0F172A;
+    }
+    
+    /* Fix markdown inside white cards ONLY */
+    div[data-testid="stContainer"] p,
+    div[data-testid="stContainer"] span,
+    .quote-box p {
         color: #0F172A !important;
     }
     
-    /* Hide branding */
+    /* Sidebar stays dark automatically — do nothing */
+    
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # =============================================================================
