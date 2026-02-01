@@ -644,7 +644,7 @@ PERCEIVE → REASON → VERIFY → ACT
     
     # Main content
     st.markdown('<p class="main-header">Credit Decisioning Agent</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-header">Autonomous Credit Decisioning Powered by Plaid Infrastructure</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-header">Autonomous Credit Decisioning Powered by Plaid</p>', unsafe_allow_html=True)
     
     # Context
     st.markdown("""
