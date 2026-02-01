@@ -902,5 +902,21 @@ PERCEIVE → REASON → VERIFY → ACT
             }
             st.json(audit_data)
 
+        with st.expander("Product Rationale: Real-Time Data in Credit Decisions"):
+            st.markdown("""
+                **Context**
+                Traditional credit scores are slow to reflect changes in a user’s financial situation and provide limited signal at the moment a decision is made.
+            
+                **Observed Gap**
+                Static scores underperform for users with volatile income, thin credit files, or recent financial recovery, leading to delayed approvals and avoidable risk.
+            
+                **Design Choice**
+                This agent uses real-time, permissioned financial data to evaluate cash flow health, account behavior, and cross-app signals at decision time.
+            
+                **Expected Impact**
+                Prioritizing current financial context improves approval precision while reducing downstream fraud and repayment risk.
+            """)
+
+
 if __name__ == "__main__":
     main()
