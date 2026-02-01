@@ -143,7 +143,7 @@ st.markdown("""
     footer {visibility: hidden;}
 
     /* Fix Streamlit bordered containers */
-    div[data-testid="stContainer"] {
+    div[data-testid="stContainer"][data-border="true"] {
         background-color: var(--surface-bg) !important;
         color: var(--surface-text-primary) !important;
         border-radius: 14px !important;
